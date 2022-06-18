@@ -1,0 +1,54 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Description": "This template is to create a vpc and two subnets",
+    "Metadata": {
+    },
+    "Parameters": {
+        "Vpconecidr": {
+            "Description": "create cidrblock for wed to fri vpc",
+            "Type": "String",
+            "Default": "10.0.0.0/16"
+    },
+    
+    "paramName": {
+        "Description": "This cidr is for pub subnet",
+        "Type": "String",
+        "Default": "10.0.1.0/24"
+    }
+    
+    "Mappings": {
+    },
+    "Conditions": {
+    },
+    "Resources": {
+      "wfvpc": {
+        "Type": "AWS::EC2::VPC",
+        "Properties": {
+          "CidrBlock": 
+          { "Ref": "VPC" }
+          
+          "Tags": [{ "Key": "Name", "Value":  "wfvpc" }]
+        }
+      }
+    },
+    "wfpubsubnet": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "AvailabilityZone": "us-east-1a",
+        "VpcId": { "Ref": "wfvpc" },
+        "CidrBlock": "10.0.1.0/24",
+        "Tags": [{ "Key": "Name", "Value":  "wfpubsubnet" }]
+      }
+    },
+    "wfprivsubnet": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "AvailabilityZone": "us-east-1b",
+        "VpcId": { "Ref": "wfvpc" },
+        "CidrBlock": "10.0.2.0/24",
+        "Tags": [{ "Key": "Name", "Value":  "wfprivsubnet" }]
+      }
+    },
+    "Outputs": {
+    }
+}
